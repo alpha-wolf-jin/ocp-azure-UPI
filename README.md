@@ -942,6 +942,41 @@ Safely to ignore the from adding *.apps record to the private DNS zone
 It still look for resoure group `aro-clmlm-rg` instead of `openenv-g96kt`
 
 ```
+[root@localhost aro06]# oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             4.10.6    True        False         False      13m     
+baremetal                                  4.10.6    True        False         False      52m     
+cloud-controller-manager                   4.10.6    True        False         False      56m     
+cloud-credential                           4.10.6    True        False         False      71m     
+cluster-autoscaler                         4.10.6    True        False         False      51m     
+config-operator                            4.10.6    True        False         False      55m     
+console                                    4.10.6    True        False         False      18m     
+csi-snapshot-controller                    4.10.6    True        False         False      44m     
+dns                                        4.10.6    True        False         False      44m     
+etcd                                       4.10.6    True        False         False      50m     
+image-registry                                       False       True          True       44m     Available: The deployment does not exist...
+ingress                                    4.10.6    True        False         False      22m     
+insights                                   4.10.6    True        False         False      48m     
+kube-apiserver                             4.10.6    True        False         False      36m     
+kube-controller-manager                    4.10.6    True        False         False      49m     
+kube-scheduler                             4.10.6    True        False         False      49m     
+kube-storage-version-migrator              4.10.6    True        False         False      44m     
+machine-api                                4.10.6    True        False         False      48m     
+machine-approver                           4.10.6    True        False         False      54m     
+machine-config                             4.10.6    True        False         False      51m     
+marketplace                                4.10.6    True        False         False      54m     
+monitoring                                 4.10.6    True        False         False      7m26s   
+network                                    4.10.6    True        False         False      55m     
+node-tuning                                4.10.6    True        False         False      44m     
+openshift-apiserver                        4.10.6    True        False         False      44m     
+openshift-controller-manager               4.10.6    True        False         False      44m     
+openshift-samples                          4.10.6    True        False         False      40m     
+operator-lifecycle-manager                 4.10.6    True        False         False      52m     
+operator-lifecycle-manager-catalog         4.10.6    True        False         False      52m     
+operator-lifecycle-manager-packageserver   4.10.6    True        False         False      44m     
+service-ca                                 4.10.6    True        False         False      55m     
+storage                                    4.10.6    True        False         False      44m     
+
 [root@localhost aro06]# oc describe co image-registry  
 Name:         image-registry
 Namespace:    
@@ -951,4 +986,39 @@ Labels:       <none>
     Reason:                Error
     Status:                True
 ....
+```
+
+**Update the Resource Group**
+
+```
+[root@localhost aro06]# oc project openshift-image-registry
+Now using project "openshift-image-registry" on server "https://api.aro.example.opentlc.com:6443".
+
+[root@localhost aro06]# oc get secret installer-cloud-credentials -o yaml
+apiVersion: v1
+data:
+  azure_client_id: YzI2NDY5MjEtMmEyNy00ZDNlLTk5N2EtNGE3YzhjNDEyZTIy
+  azure_client_secret: R1RhaVVhRUVJZGE2cGVtek8wUXljMENwU2ZLUHRzXzIzSA==
+  azure_region: ZWFzdHVz
+  azure_resource_prefix: YXJvLWNsbWxt
+  azure_resourcegroup: YXJvLWNsbWxtLXJn
+  azure_subscription_id: ZWRlN2Y4OTEtODM1Yy00MTI4LWFmNWItMGU1Mzg0OGU1NGU3
+  azure_tenant_id: MWNlNzg1MmYtZGNmMy00MmJjLWFmZTYtM2JmODFhYjk4NGZi
+kind: Secret
+metadata:
+  annotations:
+    cloudcredential.openshift.io/credentials-request: openshift-cloud-credential-operator/openshift-image-registry-azure
+  creationTimestamp: "2022-04-09T12:16:09Z"
+  name: installer-cloud-credentials
+  namespace: openshift-image-registry
+  resourceVersion: "2573"
+  uid: 6731c8cd-8f5b-4b8f-b178-76e8faefd1a5
+type: Opaque
+[root@localhost aro06]# echo YXJvLWNsbWxtLXJn | base64 -d
+aro-clmlm-rg
+
+[root@localhost aro06]# oc set data secret/installer-cloud-credentials azure_resourcegroup=openenv-g96kt
+secret/installer-cloud-credentials data updated
+
+
 ```
