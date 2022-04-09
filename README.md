@@ -147,6 +147,7 @@ example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
 ;; SERVER: 40.90.4.7#53(40.90.4.7)
 ;; WHEN: Sat Apr 09 16:27:29 +08 2022
 ;; MSG SIZE  rcvd: 182
+```
 
 ## 01 Create public DNS zone from  azure portal
 
