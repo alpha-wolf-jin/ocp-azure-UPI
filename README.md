@@ -25,12 +25,12 @@ The below commands werer installed.
 ```
 - oc command
 - openshift-install command 
-  - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
-- pull secet is stored in the `/root/pull-secet.txt`
+  - wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz
+- pull secet is stored in the /root/pull-secet.txt
 - Create defautl dir for cluster installatin
-  - `mkdir aro06 ; cd aro06`
+  - mkdir aro06 ; cd aro06
 - Set Git Credentail cache
-  - `[root@localhost aro06]# git config --global credential.helper 'cache --timeout 7200'`
+  - git config --global credential.helper 'cache --timeout 7200'
 ```
 
 Please refer to the below link for those tasks:
@@ -148,4 +148,60 @@ example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
 ;; WHEN: Sat Apr 09 16:27:29 +08 2022
 ;; MSG SIZE  rcvd: 182
 
+## 01 Create public DNS zone from  azure portal
+
+** Create OCP configation file
+```
+[root@localhost aro06]# ../openshift-install create install-config
+? SSH Public Key /root/.ssh/id_ed25519.pub
+? Platform azure
+? azure subscription id <Subscription ID>
+? azure tenant id <Tenant ID>
+? azure service principal client id <preconfigured service principal Client ID>
+? azure service principal client secret [? for help] <preconfigured service principal Client Secret>
+INFO Saving user credentials to "/root/.azure/osServicePrincipal.json" 
+INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json" 
+? Region eastus
+? Base Domain example.opentlc.com
+? Cluster Name aro
+? Pull Secret [? for help] 
+INFO Install-Config created in: .
+
+[root@localhost aro06]# cat install-config.yaml
+apiVersion: v1
+baseDomain: example.opentlc.com
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  platform: {}
+  replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform: {}
+  replicas: 3
+metadata:
+  creationTimestamp: null
+  name: aro
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.0.0.0/16
+  networkType: OpenShiftSDN
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  azure:
+    baseDomainResourceGroupName: openenv-g96kt
+    cloudName: AzurePublicCloud
+    outboundType: Loadbalancer
+    region: eastus
+publish: External
+pullSecret: 
+sshKey: |
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONeWKSpAxbJrkkThCxUjlVe80jSz2y9hIpDLpx43AyY root@localhost.localdomain
 ```
