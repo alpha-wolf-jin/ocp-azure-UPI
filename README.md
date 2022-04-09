@@ -63,7 +63,7 @@ rm 'openshift-install'
 ```
 
 
-## Create public DNS zone from  azure portal
+## 01 Create public DNS zone from  azure portal
 
 
 [Azure Portal](https://portal.azure.com)
