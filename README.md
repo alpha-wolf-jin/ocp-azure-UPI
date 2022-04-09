@@ -1066,7 +1066,7 @@ NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
 version   4.10.6    True        False         7m27s   Cluster version is 4.10.6
 
 
-[root@localhost aro06]# ./openshift-install  wait-for install-complete 
+[root@localhost aro06]# ../openshift-install  wait-for install-complete 
 -bash: ./openshift-install: No such file or directory
 [root@localhost aro06]# 
 [root@localhost aro06]# ../openshift-install  wait-for install-complete 
