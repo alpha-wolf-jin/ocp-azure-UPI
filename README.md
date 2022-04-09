@@ -637,4 +637,23 @@ Please refer to the below link for all templates:
 
 ## 10 Deploying the RHCOS cluster image for the Azure infrastructure
 
+**Export the RHCOS VHD blob URL as a variable**
+
+```
+[root@localhost aro06]# export VHD_BLOB_URL=`az storage blob url --account-name ${CLUSTER_NAME}sa --account-key ${ACCOUNT_KEY} -c vhd -n "rhcos.vhd" -o tsv`
+
+```
+
+
+**Deploy the cluster image**
+
+```
+[root@localhost aro06]# az deployment group create -g openenv-g96kt --template-file 02_storage.json --parameters vhdBlobURL="${VHD_BLOB_URL}" --parameters baseName="${INFRA_ID}"
+
+```
+>The blob URL of the RHCOS VHD to be used to create master and worker machines.
+
+**New Image Azure portal**
+![Once Login Azure portal](images/azure-image-01.png)
+
 
