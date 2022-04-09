@@ -151,7 +151,7 @@ example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
 
 ## 01 Create public DNS zone from  azure portal
 
-** Create OCP configation file **
+**Create OCP configation file**
 
 ```
 [root@localhost aro06]# ../openshift-install create install-config
@@ -170,12 +170,12 @@ INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json"
 INFO Install-Config created in: .
 ```
 
-** Customize configation file **
+**Customize configation file**
 
 You can customize the configuartion file. Below command can help to understand how to customize it.
 `[root@localhost aro06]# ../openshift-install explain installconfig.platform`
 
-I did not modify the file.
+I did not modify the fconfiguartion file.
 ```
 [root@localhost aro06]# cat install-config.yaml
 apiVersion: v1
