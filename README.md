@@ -22,16 +22,16 @@ Client Secret: XXXXXXXXXXXXXXXXXXX
 ## Prepare the commands and pull secret
 
 The below commands werer installed.
-```
+
 - oc command
 - openshift-install command 
-  - wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz
+  - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
 - pull secet is stored in the /root/pull-secet.txt
 - Create defautl dir for cluster installatin
-  - mkdir aro06 ; cd aro06
+  - `mkdir aro06 ; cd aro06`
 - Set Git Credentail cache
-  - git config --global credential.helper 'cache --timeout 7200'
-```
+  - `git config --global credential.helper 'cache --timeout 7200'`
+
 
 Please refer to the below link for those tasks:
 [OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
@@ -151,6 +151,7 @@ example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
 ## 01 Create public DNS zone from  azure portal
 
 ** Create OCP configation file
+
 ```
 [root@localhost aro06]# ../openshift-install create install-config
 ? SSH Public Key /root/.ssh/id_ed25519.pub
@@ -166,7 +167,9 @@ INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json"
 ? Cluster Name aro
 ? Pull Secret [? for help] 
 INFO Install-Config created in: .
+```
 
+```
 [root@localhost aro06]# cat install-config.yaml
 apiVersion: v1
 baseDomain: example.opentlc.com
