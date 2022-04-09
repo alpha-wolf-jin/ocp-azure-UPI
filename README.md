@@ -22,6 +22,7 @@ Client Secret: XXXXXXXXXXXXXXXXXXX
 ## Prepare the commands and pull secret
 
 The below commands werer installed.
+```
 - oc command
 - openshift-install command 
   - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
@@ -30,7 +31,7 @@ The below commands werer installed.
   - `mkdir aro06 ; cd aro06`
 - Set Git Credentail cache
   - `[root@localhost aro06]# git config --global credential.helper 'cache --timeout 7200'`
-
+```
 
 Please refer to the below link for those tasks:
 [OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
