@@ -988,7 +988,7 @@ Labels:       <none>
 ....
 ```
 
-**Update the Resource Group**
+**Update the Resource Group for the storage of inernal image registry**
 
 ```
 [root@localhost aro06]# oc project openshift-image-registry
