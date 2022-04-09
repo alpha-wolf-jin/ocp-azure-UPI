@@ -66,6 +66,7 @@ rm 'openshift-install'
 ## Test azure portal login
 
 
-[Azure Portal]()
-![Alt text](/root/pic/azure-portal-01.png?raw=true "Optional Title")
+[Azure Portal](https://portal.azure.com)
+
+![Once Login Azure portal](images/azure-portal-01.png?raw=true "Optional Title")
 
