@@ -760,4 +760,30 @@ export MASTER_IGNITION=`cat master.ign | base64 | tr -d '\n'`
 
 ```
 
+```
+[root@localhost aro06]# ssh -i ~/.ssh/id_ed25519 core@aro-clmlm-bootstrap-ssh-pip.eastus.cloudapp.azure.com
+
+[core@aro-clmlm-bootstrap ~]$ journalctl -b -f -u release-image.service -u bootkube.service
+...
+Apr 09 12:43:42 aro-clmlm-bootstrap bootkube.sh[9150]: I0409 12:43:42.019928       1 waitforceo.go:58] cluster-etcd-operator bootstrap etcd
+Apr 09 12:43:42 aro-clmlm-bootstrap bootkube.sh[9150]: bootkube.service complete
+Apr 09 12:43:42 aro-clmlm-bootstrap systemd[1]: bootkube.service: Succeeded.
+
+```
+
+```
+[root@localhost aro06]# ../openshift-install wait-for bootstrap-complete --dir /root/aro06 --log-level debug
+DEBUG OpenShift Installer 4.10.6                   
+DEBUG Built from commit 17c2fe7527e96e250e442a15727f7558b2fb8899 
+INFO Waiting up to 20m0s (until 9:07PM) for the Kubernetes API at https://api.aro.example.opentlc.com:6443... 
+INFO API v1.23.5+b0357ed up                       
+INFO Waiting up to 30m0s (until 9:17PM) for bootstrapping to complete... 
+DEBUG Bootstrap status: complete                   
+INFO It is now safe to remove the bootstrap resources 
+DEBUG Time elapsed per stage:                      
+DEBUG Bootstrap Complete: 2s                       
+DEBUG                API: 1s                       
+INFO Time elapsed: 2s         
+```
+
 
