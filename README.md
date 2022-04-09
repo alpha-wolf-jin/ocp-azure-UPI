@@ -67,5 +67,5 @@ rm 'openshift-install'
 
 
 [Azure Portal]()
-![Alt text](/home/jinzhang/Pictures/'Screenshot from 2022-04-09 13-11-36.png'?raw=true "Optional Title")
+![Alt text](/root/pic/azure-portal-01.png?raw=true "Optional Title")
 
