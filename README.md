@@ -721,8 +721,10 @@ https://arosa.blob.core.windows.net/files/bootstrap.ign?se=2022-04-10T12%3A04Z&s
 
 
 **Click `Connection` for Bootstrap VM's resources on Azure portal**
-![Once Login Azure portal](images/azure-bootstrap-connection-01.png)
 
+Click `Connect` in the left panel
+
+![Once Login Azure portal](images/azure-bootstrap-connection-01.png)
 
 **Connect via SSH with client**
 ![Once Login Azure portal](images/azure-bootstrap-vm-03.png)
@@ -739,6 +741,22 @@ This is the bootstrap node; it will be destroyed when the master is fully up.
 The primary services are release-image.service followed by bootkube.service. To watch their status, run e.g.
 
   journalctl -b -f -u release-image.service -u bootkube.service
+
+```
+
+## 13 Creating the control plane machines in Azure
+
+**Export the following variable needed by the control plane machine deployment**
+
+```
+export MASTER_IGNITION=`cat master.ign | base64 | tr -d '\n'`
+
+```
+
+**Create the deployment by using the az CLI**
+
+```
+[root@localhost aro06]# az deployment group create -g ${RESOURCE_GROUP} --template-file "05_masters.json" --parameters masterIgnition="${MASTER_IGNITION}" --parameters baseName="${INFRA_ID}"
 
 ```
 
