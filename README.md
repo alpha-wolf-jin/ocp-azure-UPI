@@ -252,7 +252,6 @@ The original configuration file will be consumed druing creation manifest files.
 **Create OCP configation file**
 
 ```
-[root@localhost aro06]# cp install-config.yaml ~/backup/install-config.yaml-9-April
 [root@localhost aro06]# ../openshift-install create manifests
 INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json" 
 INFO Consuming Install Config from target directory 
@@ -303,3 +302,47 @@ INFO Manifests created in: manifests and openshift
 
 
 ```
+
+**Check the resoure group auto generated**
+
+```
+[root@localhost aro06]# cat manifests/cluster-infrastructure-02-config.yml
+apiVersion: config.openshift.io/v1
+kind: Infrastructure
+metadata:
+  creationTimestamp: null
+  name: cluster
+spec:
+  cloudConfig:
+    key: config
+    name: cloud-provider-config
+  platformSpec:
+    type: Azure
+status:
+  apiServerInternalURI: https://api-int.aro.example.opentlc.com:6443
+  apiServerURL: https://api.aro.example.opentlc.com:6443
+  controlPlaneTopology: HighlyAvailable
+  etcdDiscoveryDomain: ""
+  infrastructureName: aro-clmlm
+  infrastructureTopology: HighlyAvailable
+  platform: Azure
+  platformStatus:
+    azure:
+      cloudName: AzurePublicCloud
+      networkResourceGroupName: aro-clmlm-rg
+      resourceGroupName: aro-clmlm-rg
+    type: Azure
+```
+
+> Auto generated route group name : <infrastructureName>-rg
+
+```
+[root@localhost aro06]# grep -R aro-clmlm-rg ./manifests/
+./manifests/cloud-provider-config.yaml:    \"aro-clmlm-rg\",\n\t\"location\": \"eastus\",\n\t\"vnetName\": \"aro-clmlm-vnet\",\n\t\"vnetResourceGroup\":
+./manifests/cloud-provider-config.yaml:    \"aro-clmlm-rg\",\n\t\"subnetName\": \"aro-clmlm-worker-subnet\",\n\t\"securityGroupName\":
+./manifests/cluster-dns-02-config.yml:    id: /subscriptions/ede7f891-835c-4128-af5b-0e53848e54e7/resourceGroups/aro-clmlm-rg/providers/Microsoft.Network/privateDnsZones/aro.example.opentlc.com
+./manifests/cluster-infrastructure-02-config.yml:      networkResourceGroupName: aro-clmlm-rg
+./manifests/cluster-infrastructure-02-config.yml:      resourceGroupName: aro-clmlm-rg
+
+```
+>Replace all `aro-clmlm-rg` will `openenv-g96kt` predefined resource group
