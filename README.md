@@ -657,3 +657,38 @@ Please refer to the below link for all templates:
 ![Once Login Azure portal](images/azure-image-01.png)
 
 
+## 11 Creating networking and load balancing components in Azure
+
+**Create the deployment by using the az CLI**
+
+```
+[root@localhost aro06]# az deployment group create -g ${RESOURCE_GROUP} --template-file "03_infra.json" --parameters privateDNSZoneName="${CLUSTER_NAME}.${BASE_DOMAIN}" --parameters baseName="${INFRA_ID}"
+
+```
+
+**Create an api DNS record in the public zone for the API public load balancer. The ${BASE_DOMAIN_RESOURCE_GROUP} variable must point to the resource group where the public DNS zone exists**
+
+
+Export the following variable
+
+```
+[root@localhost aro06]# export PUBLIC_IP=`az network public-ip list -g ${RESOURCE_GROUP} --query "[?name=='${INFRA_ID}-master-pip'] | [0].ipAddress" -o tsv`
+[root@localhost aro06]# echo $PUBLIC_IP
+52.191.100.197
+
+```
+
+Create the api DNS record in a existing public zone
+
+```
+[root@localhost aro06]# az network dns record-set a add-record -g ${BASE_DOMAIN_RESOURCE_GROUP} -z ${BASE_DOMAIN} -n api.${CLUSTER_NAME} -a ${PUBLIC_IP} --ttl 60
+
+```
+
+
+**New LBs & Public IP Azure portal**
+![Once Login Azure portal](images/azure-LBs-PubIP-01.png)
+
+
+
+
