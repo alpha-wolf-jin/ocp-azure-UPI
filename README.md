@@ -569,3 +569,27 @@ success
 ![Once Login Azure portal](images/azure-storage-container-02.png)
 
 
+**Create a blob storage container and upload the generated bootstrap.ign file**
+
+```
+[root@localhost aro06]# az storage container create --name files --account-name ${CLUSTER_NAME}sa --account-key ${ACCOUNT_KEY}
+
+[root@localhost aro06]# az storage blob upload --account-name ${CLUSTER_NAME}sa --account-key $ACCOUNT_KEY -c "files" -f "bootstrap.ign" -n "bootstrap.ign"
+```
+
+
+## 07 creating private DNS zones
+
+
+**Create the private DNS zone**
+
+```
+[root@localhost aro06]# az network private-dns zone create -g $RESOURCE_GROUP -n ${CLUSTER_NAME}.${BASE_DOMAIN}
+
+```
+
+
+**New Privare DNS Zone on Azure portal**
+![Once Login Azure portal](images/azure-private-dns-zone-01.png)
+
+
