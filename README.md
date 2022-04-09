@@ -334,7 +334,7 @@ status:
     type: Azure
 ```
 
-> `Auto generated route group name : <infrastructureName>-rg`
+> `Auto generated route group name <infrastructureName>-rg : aro-clmlm-rg`
 
 ```
 [root@localhost aro06]# grep -R aro-clmlm-rg ./manifests/
@@ -346,3 +346,26 @@ status:
 
 ```
 >Replace all `aro-clmlm-rg` will `openenv-g96kt` predefined resource group
+
+```
+[root@localhost aro06]# vim ./manifests/cluster-infrastructure-02-config.yml
+~                                                                                                                                               
+~                                                                                                                                               
+:%s#aro-clmlm-rg#openenv-g96kt#g
+
+```
+
+```
+[root@localhost aro06]# vim ./manifests/cloud-provider-config.yaml
+~                                                                                                                                               
+~                                                                                                                                               
+:%s#aro-clmlm-rg#openenv-g96kt#g
+
+```
+
+Confirmed that there is no more `aro-clmlm-rg` in `./manifests/` dir
+```
+[root@localhost aro06]# grep -R aro-clmlm-rg ./manifests/
+[root@localhost aro06]# 
+
+```
