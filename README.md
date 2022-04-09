@@ -786,4 +786,91 @@ DEBUG                API: 1s
 INFO Time elapsed: 2s         
 ```
 
+**Delete the bootstrap resources**
 
+```
+az network nsg rule delete -g ${RESOURCE_GROUP} --nsg-name ${INFRA_ID}-nsg --name bootstrap_ssh_in
+az vm stop -g ${RESOURCE_GROUP} --name ${INFRA_ID}-bootstrap
+az vm deallocate -g ${RESOURCE_GROUP} --name ${INFRA_ID}-bootstrap
+az vm delete -g ${RESOURCE_GROUP} --name ${INFRA_ID}-bootstrap --yes
+az disk delete -g ${RESOURCE_GROUP} --name ${INFRA_ID}-bootstrap_OSDisk --no-wait --yes
+az network nic delete -g ${RESOURCE_GROUP} --name ${INFRA_ID}-bootstrap-nic --no-wait
+az storage blob delete --account-key ${ACCOUNT_KEY} --account-name ${CLUSTER_NAME}sa --container-name files --name bootstrap.ign
+az network public-ip delete -g ${RESOURCE_GROUP} --name ${INFRA_ID}-bootstrap-ssh-pip
+```
+
+## 14 Creating additional worker machines in Azure
+
+**Export the following variable needed by the worker machine deployment**
+
+```
+[root@localhost aro06]# export WORKER_IGNITION=`cat worker.ign | base64 | tr -d '\n'`
+
+```
+
+**Create the deployment by using the az CLI**
+
+```
+[root@localhost aro06]# az deployment group create -g ${RESOURCE_GROUP} --template-file "06_workers.json" --parameters workerIgnition="${WORKER_IGNITION}" --parameters baseName="${INFRA_ID}"
+
+```
+
+## 15 Approving the certificate signing requests for your machines
+
+**Confirm that the cluster recognizes the machines**
+
+```
+[root@localhost aro06]# export KUBECONFIG=/root/aro06/auth/kubeconfig
+[root@localhost aro06]# oc get node
+NAME                 STATUS   ROLES    AGE   VERSION
+aro-clmlm-master-0   Ready    master   27m   v1.23.5+b0357ed
+aro-clmlm-master-1   Ready    master   29m   v1.23.5+b0357ed
+aro-clmlm-master-2   Ready    master   28m   v1.23.5+b0357ed
+
+```
+
+
+**Review the pending CSRs**
+
+```
+[root@localhost aro06]# oc get csr | grep -i pending
+csr-9jh6g                                        3m29s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper         <none>              Pending
+csr-gnr47                                        4m25s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper         <none>              Pending
+csr-sc9lm                                        4m2s    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper         <none>              Pending
+
+```
+
+
+**To approve all pending CSRs, run the following command**
+
+```
+[root@localhost aro06]# oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
+certificatesigningrequest.certificates.k8s.io/csr-9jh6g approved
+certificatesigningrequest.certificates.k8s.io/csr-gnr47 approved
+certificatesigningrequest.certificates.k8s.io/csr-sc9lm approved
+
+```
+
+Wait for a while, other 3 pending CSRs. Each work node has 2 CSR for approval
+
+```
+[root@localhost aro06]# oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
+certificatesigningrequest.certificates.k8s.io/csr-9jh6g approved
+certificatesigningrequest.certificates.k8s.io/csr-gnr47 approved
+certificatesigningrequest.certificates.k8s.io/csr-sc9lm approved
+
+```
+
+Node Status
+
+```
+[root@localhost aro06]# oc get node
+NAME                        STATUS   ROLES    AGE    VERSION
+aro-clmlm-master-0          Ready    master   32m    v1.23.5+b0357ed
+aro-clmlm-master-1          Ready    master   33m    v1.23.5+b0357ed
+aro-clmlm-master-2          Ready    master   33m    v1.23.5+b0357ed
+aro-clmlm-worker-eastus-1   Ready    worker   106s   v1.23.5+b0357ed
+aro-clmlm-worker-eastus-2   Ready    worker   111s   v1.23.5+b0357ed
+aro-clmlm-worker-eastus-3   Ready    worker   113s   v1.23.5+b0357ed
+
+```
