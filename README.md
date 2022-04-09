@@ -498,4 +498,8 @@ az role assignment create --assignee 3cc79d25-f1d5-482f-828c-092671226a6a --role
 [root@localhost aro06]# az role assignment create --assignee "$PRINCIPAL_ID" --role 'Contributor' --scope "$RESOURCE_GROUP_ID"
 
 ```
+
+**Newly ceated Azure identity on Azure portal**
+![Once Login Azure portal](images/azure-rg-identity-01.png)
+
 ## 06 Create an Azure identity for predefined the resource group
