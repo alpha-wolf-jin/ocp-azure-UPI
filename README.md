@@ -447,3 +447,55 @@ INFO Ignition-Configs created in: . and auth
 2 directories, 14 files
 
 ```
+
+**Verify the env varaible**
+
+```
+[root@localhost aro06]# echo $CLUSTER_NAME
+aro
+
+[root@localhost aro06]# echo $AZURE_REGION
+eastus
+
+[root@localhost aro06]# echo $AZURE_REGION
+eastus
+
+[root@localhost aro06]# echo $BASE_DOMAIN_RESOURCE_GROUP
+openenv-g96kt
+
+[root@localhost aro06]# echo $INFRA_ID
+aro-clmlm
+
+[root@localhost aro06]# echo $RESOURCE_GROUP
+openenv-g96kt
+
+[root@localhost aro06]# export SSH_KEY=`cat ~/.ssh/id_ed25519.pub`
+[root@localhost aro06]# echo $SSH_KEY
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONeWKSpAxbJrkkThCxUjlVe80jSz2y9hIpDLpx43AyY root@localhost.localdomain
+
+```
+
+## 05 Create an Azure identity for predefined the resource group
+
+**Create an Azure identity for the resource group**
+```
+[root@localhost aro06]# echo az identity create -g $RESOURCE_GROUP -n ${INFRA_ID}-identity
+az identity create -g openenv-g96kt -n aro-clmlm-identity
+
+[root@localhost aro06]# az identity create -g $RESOURCE_GROUP -n ${INFRA_ID}-identity
+
+```
+
+**Grant the Contributor role to the Azure identity**
+```
+[root@localhost aro06]# export PRINCIPAL_ID=`az identity show -g $RESOURCE_GROUP -n ${INFRA_ID}-identity --query principalId --out tsv`
+
+[root@localhost aro06]# export RESOURCE_GROUP_ID=`az group show -g $RESOURCE_GROUP --query id --out tsv`
+
+[root@localhost aro06]# echo az role assignment create --assignee "$PRINCIPAL_ID" --role 'Contributor' --scope "$RESOURCE_GROUP_ID"
+az role assignment create --assignee 3cc79d25-f1d5-482f-828c-092671226a6a --role Contributor --scope /subscriptions/ede7f891-835c-4128-af5b-0e53848e54e7/resourceGroups/openenv-g96kt
+
+[root@localhost aro06]# az role assignment create --assignee "$PRINCIPAL_ID" --role 'Contributor' --scope "$RESOURCE_GROUP_ID"
+
+```
+## 06 Create an Azure identity for predefined the resource group
