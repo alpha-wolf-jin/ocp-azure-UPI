@@ -506,4 +506,58 @@ az role assignment create --assignee 3cc79d25-f1d5-482f-828c-092671226a6a --role
 **Newly ceated Azure identity on Azure portal**
 ![Once Login Azure portal](images/azure-rg-identity-01.png)
 
-## 06 Create an Azure identity for predefined the resource group
+## 06 Uploading the RHCOS cluster image and bootstrap Ignition config file
+
+**Create an Azure storage account to store the VHD cluster image**
+
+```
+[root@localhost aro06]# az storage account create -g $RESOURCE_GROUP --location $AZURE_REGION --name ${CLUSTER_NAME}sa --kind Storage --sku Standard_LRS
+```
+
+**Export the storage account key as an environment variable**
+
+```
+[root@localhost aro06]# export ACCOUNT_KEY=`az storage account keys list -g $RESOURCE_GROUP --account-name ${CLUSTER_NAME}sa --query "[0].value" -o tsv`
+
+```
+
+**Export the URL of the RHCOS VHD to an environment variable**
+
+```
+[root@localhost aro06]# export VHD_URL=$(../openshift-install coreos print-stream-json | jq -r '.architectures.x86_64."rhel-coreos-extensions"."azure-disk".url')
+[root@localhost aro06]# echo $VHD_URL
+https://rhcos.blob.core.windows.net/imagebucket/rhcos-410.84.202201251210-0-azure.x86_64.vhd
+
+```
+
+**Create the storage container for the VHD**
+
+```
+[root@localhost aro06]# az storage container create --name vhd --account-name ${CLUSTER_NAME}sa --account-key $ACCOUNT_KEY
+
+```
+
+**Copy the local VHD to a blob**
+
+```
+[root@localhost aro06]# az storage blob copy start --account-name ${CLUSTER_NAME}sa --account-key $ACCOUNT_KEY --destination-blob "rhcos.vhd" --destination-container vhd --source-uri "$VHD_URL"
+
+```
+
+**Track copy progressgin..**
+Take a few mins
+```
+status="unknown"
+while [ "$status" != "success" ]
+do
+  status=`az storage blob show --container-name vhd --name "rhcos.vhd" --account-name ${CLUSTER_NAME}sa --account-key $ACCOUNT_KEY -o tsv --query properties.copy.status`
+  echo $status
+done
+
+
+pending
+pending
+pending
+success
+
+```
