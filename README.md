@@ -1075,6 +1075,6 @@ INFO Waiting up to 10m0s (until 9:53PM) for the openshift-console route to be cr
 INFO Install complete!                            
 INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/root/aro06/auth/kubeconfig' 
 INFO Access the OpenShift web-console here: https://console-openshift-console.apps.aro.example.opentlc.com 
-INFO Login to the console with user: "kubeadmin", and password: "e7w3D-iao78-tYZox-7gKC9" 
+INFO Login to the console with user: "kubeadmin", and password: "XXXXXXXXXXXXX" 
 INFO Time elapsed: 2s                  
 ```
