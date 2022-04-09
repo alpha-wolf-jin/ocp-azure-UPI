@@ -34,5 +34,29 @@ Please refer to the below link for those tasks:
 
 ### Add the evironment variable to `~/.bashrc`
 
-[root@localhost aro05]# az login --service-principal -u $CLIENT_ID -p $PASSWORD --tenant $TENANT
+[root@localhost aro06]# az login --service-principal -u $CLIENT_ID -p $PASSWORD --tenant $TENANT
 
+> Remove the big file from commit
+```
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote: error: Trace: e9376a951fbbee39313b195923d9033263e66e26ad5ca13fe473d214111385db
+remote: error: See http://git.io/iEPt8g for more information.
+remote: error: File openshift-install is 590.87 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+To https://github.com/alpha-wolf-jin/ocp-azure-UPI.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'https://github.com/alpha-wolf-jin/ocp-azure-UPI.git'
+[root@localhost aro06]# git reset --soft HEAD~1
+[root@localhost aro06]# git reset HEAD openshift-install
+Unstaged changes after reset:
+D	openshift-install
+[root@localhost aro06]# git rm --cached openshift-install
+rm 'openshift-install'
+[root@localhost aro06]# git commit --amend
+[main 565c9a9] Delete openshift-install >100MB file which fails push failure
+ Date: Sat Apr 9 12:30:09 2022 +0800
+ Committer: root <root@localhost.localdomain>
+...
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+[root@localhost aro06]# git push -u origin main
+```
