@@ -303,7 +303,9 @@ INFO Manifests created in: manifests and openshift
 
 ```
 
-**Check the resoure group auto generated**
+**Update the resoure group**
+
+I used predefined resource group, instead of default resource group.
 
 ```
 [root@localhost aro06]# cat manifests/cluster-infrastructure-02-config.yml
