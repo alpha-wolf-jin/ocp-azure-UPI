@@ -247,7 +247,7 @@ The original configuration file will be consumed druing creation manifest files.
 
 
 
-## 03 Create Configuration file
+## 03 Create manifest files
 
 **Create OCP configation file**
 
@@ -400,5 +400,50 @@ Confirmed that there is no more `aro-clmlm-rg` in `./manifests/` dir
 ```
 [root@localhost aro06]# grep -R aro-clmlm-rg ./openshift/
 [root@localhost aro06]# 
+
+```
+
+**Set env variable based on manifest files**
+```
+[root@localhost aro06]# export INFRA_ID=`yq -r '.status.infrastructureName' manifests/cluster-infrastructure-02-config.yml`
+[root@localhost aro06]# echo $INFRA_ID
+aro-clmlm
+
+[root@localhost aro06]# export RESOURCE_GROUP=`yq -r '.status.platformStatus.azure.resourceGroupName' manifests/cluster-infrastructure-02-config.yml`
+[root@localhost aro06]# echo $RESOURCE_GROUP
+openenv-g96kt
+
+```
+## 04 Create Ignite files
+
+```
+[root@localhost aro06]# ../openshift-install create ignition-configs
+INFO Consuming Common Manifests from target directory 
+INFO Consuming OpenShift Install (Manifests) from target directory 
+INFO Consuming Master Machines from target directory 
+INFO Consuming Openshift Manifests from target directory 
+INFO Consuming Worker Machines from target directory 
+INFO Ignition-Configs created in: . and auth      
+
+[root@localhost aro06]# tree
+.
+├── auth
+│   ├── kubeadmin-password
+│   └── kubeconfig
+├── bootstrap.ign
+├── images
+│   ├── azure-dns-zone-01.png
+│   ├── azure-dns-zone-02.png
+│   ├── azure-dns-zone-03.png
+│   ├── azure-dns-zone-04.png
+│   ├── azure-portal-01.png
+│   ├── azure-rg-01.png
+│   └── test
+├── master.ign
+├── metadata.json
+├── README.md
+└── worker.ign
+
+2 directories, 14 files
 
 ```
