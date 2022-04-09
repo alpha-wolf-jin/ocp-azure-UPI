@@ -593,3 +593,21 @@ success
 ![Once Login Azure portal](images/azure-private-dns-zone-01.png)
 
 
+## 08 Prepare the templates
+
+
+
+```
+[root@localhost aro06]# ls -l 0*.json
+-rw-r--r--. 1 root root 2849 Apr  9 19:33 01_vnet.json
+-rw-r--r--. 1 root root 1168 Apr  9 19:33 02_storage.json
+-rw-r--r--. 1 root root 8332 Apr  9 19:33 03_infra.json
+-rw-r--r--. 1 root root 6189 Apr  9 19:33 04_bootstrap.json
+-rw-r--r--. 1 root root 5760 Apr  9 19:33 05_masters.json
+-rw-r--r--. 1 root root 5589 Apr  9 19:33 06_workers.json
+
+```
+
+
+Please refer to the below link for all templates:
+[OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
