@@ -371,3 +371,34 @@ Confirmed that there is no more `aro-clmlm-rg` in `./manifests/` dir
 [root@localhost aro06]# 
 
 ```
+
+
+**Delete machines & machineset configuration files for master and worker**
+
+```
+[root@localhost aro06]# ls openshift/
+99_cloud-creds-secret.yaml                             99_openshift-cluster-api_worker-machineset-1.yaml
+99_kubeadmin-password-secret.yaml                      99_openshift-cluster-api_worker-machineset-2.yaml
+99_openshift-cluster-api_master-machines-0.yaml        99_openshift-cluster-api_worker-user-data-secret.yaml
+99_openshift-cluster-api_master-machines-1.yaml        99_openshift-machineconfig_99-master-ssh.yaml
+99_openshift-cluster-api_master-machines-2.yaml        99_openshift-machineconfig_99-worker-ssh.yaml
+99_openshift-cluster-api_master-user-data-secret.yaml  99_role-cloud-creds-secret-reader.yaml
+99_openshift-cluster-api_worker-machineset-0.yaml      openshift-install-manifests.yaml
+
+[root@localhost aro06]# rm -f ./openshift/99_openshift-cluster-api_master-machines-*.yaml 
+[root@localhost aro06]# rm -f ./openshift/99_openshift-cluster-api_worker-machineset-*.yaml
+
+[root@localhost aro06]# ls ./openshift
+99_cloud-creds-secret.yaml                             99_openshift-machineconfig_99-master-ssh.yaml
+99_kubeadmin-password-secret.yaml                      99_openshift-machineconfig_99-worker-ssh.yaml
+99_openshift-cluster-api_master-user-data-secret.yaml  99_role-cloud-creds-secret-reader.yaml
+99_openshift-cluster-api_worker-user-data-secret.yaml  openshift-install-manifests.yaml
+
+```
+
+Confirmed that there is no more `aro-clmlm-rg` in `./manifests/` dir
+```
+[root@localhost aro06]# grep -R aro-clmlm-rg ./openshift/
+[root@localhost aro06]# 
+
+```
