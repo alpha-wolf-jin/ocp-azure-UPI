@@ -216,7 +216,11 @@ sshKey: |
   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONeWKSpAxbJrkkThCxUjlVe80jSz2y9hIpDLpx43AyY root@localhost.localdomain
 ```
 
+
+
 **Set the env variable based on configuration file**
+
+
 
 ```
 [root@localhost aro06]# yq -r .metadata.name install-config.yaml
