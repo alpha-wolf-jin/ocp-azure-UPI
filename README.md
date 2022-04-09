@@ -561,3 +561,11 @@ pending
 success
 
 ```
+**New Strorage Account on Azure portal**
+![Once Login Azure portal](images/azure-storage-container-01.png)
+
+
+**New vhd container on Azure portal**
+![Once Login Azure portal](images/azure-storage-container-02.png)
+
+
