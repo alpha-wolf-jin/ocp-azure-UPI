@@ -23,8 +23,16 @@ Client Secret: XXXXXXXXXXXXXXXXXXX
 
 The below commands werer installed.
 - oc command
-- openshift-install command
+- openshift-install command `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
 - pull secet is stored in the `/root/pull-secet.txt`
+- Create defautl dir for cluster installatin `mkdir aro06 ; cd aro06`
 
 Please refer to the below link for those tasks:
-[GitHub Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
+[OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
+
+## Test azure login
+
+### Add the evironment variable to `~/.bashrc`
+
+[root@localhost aro05]# az login --service-principal -u $CLIENT_ID -p $PASSWORD --tenant $TENANT
+
