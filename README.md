@@ -117,4 +117,30 @@ PREFIX=24
 GATEWAY=192.168.122.1
 DNS1=40.90.4.7
 DNS2=8.8.8.8
+
+[root@localhost ~]# dig  example.opentlc.com -t NS
+
+; <<>> DiG 9.11.26-RedHat-9.11.26-6.el8 <<>> example.opentlc.com -t NS
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 39471
+;; flags: qr aa rd; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;example.opentlc.com.		IN	NS
+
+;; ANSWER SECTION:
+example.opentlc.com.	172800	IN	NS	ns1-07.azure-dns.com.
+example.opentlc.com.	172800	IN	NS	ns2-07.azure-dns.net.
+example.opentlc.com.	172800	IN	NS	ns3-07.azure-dns.org.
+example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
+
+;; Query time: 32 msec
+;; SERVER: 40.90.4.7#53(40.90.4.7)
+;; WHEN: Sat Apr 09 16:27:29 +08 2022
+;; MSG SIZE  rcvd: 182
+
 ```
