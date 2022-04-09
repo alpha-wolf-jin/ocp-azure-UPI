@@ -593,7 +593,7 @@ success
 ![Once Login Azure portal](images/azure-private-dns-zone-01.png)
 
 
-## 08 Prepare the templates
+## 08 Prepare the ARM templates
 
 
 
@@ -611,3 +611,30 @@ success
 
 Please refer to the below link for all templates:
 [OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
+
+
+## 09 Creating a VNet in Azure
+
+**Create the deployment by using the az CLI**
+
+```
+[root@localhost aro06]# az deployment group create -g ${RESOURCE_GROUP} --template-file "01_vnet.json" --parameters baseName="${INFRA_ID}"
+
+```
+
+**Link the VNet template to the private DNS zone**
+
+```
+[root@localhost aro06]# az network private-dns link vnet create -g ${RESOURCE_GROUP} -z ${CLUSTER_NAME}.${BASE_DOMAIN} -n ${INFRA_ID}-network-link -v "${INFRA_ID}-vnet" -e false
+```
+
+
+
+**New VNet & Networ Security Group on Azure portal**
+![Once Login Azure portal](images/azure-vnet-nsg-01.png)
+
+
+
+## 10 Deploying the RHCOS cluster image for the Azure infrastructure
+
+
