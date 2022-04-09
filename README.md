@@ -874,3 +874,81 @@ aro-clmlm-worker-eastus-2   Ready    worker   111s   v1.23.5+b0357ed
 aro-clmlm-worker-eastus-3   Ready    worker   113s   v1.23.5+b0357ed
 
 ```
+
+## 16 Adding the Ingress DNS records
+
+**Confirm the Ingress router has created a load balancer and populated the EXTERNAL-IP field**
+
+```
+[root@localhost aro06]# oc -n openshift-ingress get service router-default
+NAME             TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+router-default   LoadBalancer   172.30.251.189   20.81.3.162   80:32549/TCP,443:32144/TCP   37m
+
+```
+
+
+**Export the Ingress router IP as a variable**
+
+```
+[root@localhost aro06]# export PUBLIC_IP_ROUTER=`oc -n openshift-ingress get service router-default --no-headers | awk '{print $4}'`
+[root@localhost aro06]# echo $PUBLIC_IP_ROUTER
+20.81.3.162
+
+```
+
+**Add a *.apps record to the existing public DNS zone**
+
+```
+[root@localhost aro06]# az network dns record-set a add-record -g ${BASE_DOMAIN_RESOURCE_GROUP} -z ${BASE_DOMAIN} -n *.apps.${CLUSTER_NAME} -a ${PUBLIC_IP_ROUTER} --ttl 300
+
+```
+
+**Add a *.apps record to the private DNS zone**
+
+Create a *.apps record by using the following command
+```
+[root@localhost aro06]# echo az network private-dns record-set a create -g ${RESOURCE_GROUP} -z ${CLUSTER_NAME}.${BASE_DOMAIN} -n *.apps --ttl 300
+az network private-dns record-set a create -g openenv-g96kt -z aro.example.opentlc.com -n *.apps --ttl 300
+[root@localhost aro06]# echo az network private-dns record-set a add-record -g ${RESOURCE_GROUP} -z ${CLUSTER_NAME}.${BASE_DOMAIN} -n *.apps -a ${PUBLIC_IP_ROUTER}
+az network private-dns record-set a add-record -g openenv-g96kt -z aro.example.opentlc.com -n *.apps -a 20.81.3.162
+
+```
+
+Error
+
+```
+[root@localhost aro06]# az network private-dns record-set a create -g ${RESOURCE_GROUP} -z ${CLUSTER_NAME}.${BASE_DOMAIN} -n *.apps --ttl 300
+(PreconditionFailed) The Record set *.apps exists already and hence cannot be created again.
+Code: PreconditionFailed
+Message: The Record set *.apps exists already and hence cannot be created again.
+[root@localhost aro06]# az network private-dns record-set a add-record -g ${RESOURCE_GROUP} -z ${CLUSTER_NAME}.${BASE_DOMAIN} -n *.apps -a ${PUBLIC_IP_ROUTER}
+(BadRequest) The list of record sets of type 'A' may not contain multiple entries with the same 'ipv4Address'.
+Code: BadRequest
+Message: The list of record sets of type 'A' may not contain multiple entries with the same 'ipv4Address'.
+```
+
+
+### *apps is inside private DNS ZONE
+Safely to ignore the from adding *.apps record to the private DNS zone
+![Once Login Azure portal](images/azure-private-dns-record-01.png)
+
+
+
+## 17 Fix image registry storage issue
+
+
+**Storage Error**
+ 
+It still look for resoure group `aro-clmlm-rg` instead of `openenv-g96kt`
+
+```
+[root@localhost aro06]# oc describe co image-registry  
+Name:         image-registry
+Namespace:    
+Labels:       <none>
+    ....
+    Message:               Progressing: Unable to apply resources: unable to sync storage configuration: failed to start creating storage account: storage.AccountsClient#Create: Failure sending request: StatusCode=0 -- Original Error: Code="AuthorizationFailed" Message="The client 'a2738a72-f94d-45e5-a3df-f6604659ce5a' with object id 'a2738a72-f94d-45e5-a3df-f6604659ce5a' does not have authorization to perform action 'Microsoft.Storage/storageAccounts/write' over scope '/subscriptions/ede7f891-835c-4128-af5b-0e53848e54e7/resourceGroups/aro-clmlm-rg/providers/Microsoft.Storage/storageAccounts/imageregistryaroclmz8sf9' or the scope is invalid. If access was recently granted, please refresh your credentials."
+    Reason:                Error
+    Status:                True
+....
+```
