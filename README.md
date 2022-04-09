@@ -690,5 +690,31 @@ Create the api DNS record in a existing public zone
 ![Once Login Azure portal](images/azure-LBs-PubIP-01.png)
 
 
+## 12 Creating the bootstrap machine in Azure
+
+**Export the bootstrap URL variable**
+
+```
+[root@localhost aro06]# export BOOTSTRAP_URL=`az storage blob generate-sas -c 'files' -n 'bootstrap.ign' --https-only --full-uri --permissions r --expiry $bootstrap_url_expiry --account-name ${CLUSTER_NAME}sa --account-key ${ACCOUNT_KEY} -o tsv`
+
+[root@localhost aro06]# echo $BOOTSTRAP_URL
+https://arosa.blob.core.windows.net/files/bootstrap.ign?se=2022-04-10T12%3A04Z&sp=r&spr=https&sv=2018-11-09&sr=b&sig=N68Vy10Y6F3bggvFV3iZml6Sp11m3gnmB2N6OKFSSpg%3D
+
+```
+
+**Export the bootstrap ignition variable**
+
+```
+[root@localhost aro06]# export BOOTSTRAP_IGNITION=`jq -rcnM --arg v "3.2.0" --arg url ${BOOTSTRAP_URL} '{ignition:{version:$v,config:{replace:{source:$url}}}}' | base64 | tr -d '\n'`
+
+```
+
+**Create the deployment by using the az CLI**
+
+```
+[root@localhost aro06]# az deployment group create -g ${RESOURCE_GROUP} --template-file "04_bootstrap.json" --parameters bootstrapIgnition="${BOOTSTRAP_IGNITION}" --parameters baseName="${INFRA_ID}" 
+
+```
+
 
 
