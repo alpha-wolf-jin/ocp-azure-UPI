@@ -149,7 +149,7 @@ example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
 ;; MSG SIZE  rcvd: 182
 ```
 
-## 01 Create public DNS zone from  azure portal
+## 02 Create Configuration file
 
 **Create OCP configation file**
 
@@ -214,4 +214,65 @@ publish: External
 pullSecret: 
 sshKey: |
   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONeWKSpAxbJrkkThCxUjlVe80jSz2y9hIpDLpx43AyY root@localhost.localdomain
+```
+
+**Set the env variable based on configuration file**
+
+```
+[root@localhost aro06]# yq -r .metadata.name install-config.yaml
+aro
+
+[root@localhost aro06]# export CLUSTER_NAME=aro
+
+[root@localhost aro06]# yq -r .platform.azure.region install-config.yaml
+eastus
+
+[root@localhost aro06]# export AZURE_REGION=eastus
+
+[root@localhost aro06]# yq -r .baseDomain install-config.yaml
+example.opentlc.com
+
+[root@localhost aro06]# export BASE_DOMAIN=example.opentlc.com
+
+[root@localhost aro06]# yq -r .platform.azure.baseDomainResourceGroupName install-config.yaml
+openenv-g96kt
+
+[root@localhost aro06]# export BASE_DOMAIN_RESOURCE_GROUP=openenv-g96kt
+```
+## 03 Create Configuration file
+
+**Create OCP configation file**
+
+```
+yml
+│   ├── cluster-infrastructure-02-config.yml
+│   ├── cluster-ingress-02-config.yml
+│   ├── cluster-network-01-crd.yml
+│   ├── cluster-network-02-config.yml
+│   ├── cluster-proxy-01-config.yaml
+│   ├── cluster-scheduler-02-config.yml
+│   ├── cvo-overrides.yaml
+│   ├── kube-cloud-config.yaml
+│   ├── kube-system-configmap-root-ca.yaml
+│   ├── machine-config-server-tls-secret.yaml
+│   └── openshift-config-secret-pull-secret.yaml
+├── openshift
+│   ├── 99_cloud-creds-secret.yaml
+│   ├── 99_kubeadmin-password-secret.yaml
+│   ├── 99_openshift-cluster-api_master-machines-0.yaml
+│   ├── 99_openshift-cluster-api_master-machines-1.yaml
+│   ├── 99_openshift-cluster-api_master-machines-2.yaml
+│   ├── 99_openshift-cluster-api_master-user-data-secret.yaml
+│   ├── 99_openshift-cluster-api_worker-machineset-0.yaml
+│   ├── 99_openshift-cluster-api_worker-machineset-1.yaml
+│   ├── 99_openshift-cluster-api_worker-machineset-2.yaml
+│   ├── 99_openshift-cluster-api_worker-user-data-secret.yaml
+│   ├── 99_openshift-machineconfig_99-master-ssh.yaml
+│   ├── 99_openshift-machineconfig_99-worker-ssh.yaml
+│   ├── 99_role-cloud-creds-secret-reader.yaml
+│   └── openshift-install-manifests.yaml
+└── README.md
+
+3 directories, 36 files
+
 ```
