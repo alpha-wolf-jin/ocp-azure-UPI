@@ -334,7 +334,7 @@ status:
     type: Azure
 ```
 
-> Auto generated route group name : <infrastructureName>-rg
+> `Auto generated route group name : <infrastructureName>-rg`
 
 ```
 [root@localhost aro06]# grep -R aro-clmlm-rg ./manifests/
