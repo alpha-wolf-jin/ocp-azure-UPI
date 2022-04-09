@@ -24,12 +24,14 @@ Client Secret: XXXXXXXXXXXXXXXXXXX
 The below commands werer installed.
 - oc command
 - openshift-install command 
-  `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
+  - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
 - pull secet is stored in the `/root/pull-secet.txt`
 - Create defautl dir for cluster installatin
-  `mkdir aro06 ; cd aro06`
+  - `mkdir aro06 ; cd aro06`
 - Set Git Credentail cache
-  `[root@localhost aro06]# git config --global credential.helper 'cache --timeout 7200'`
+  - `[root@localhost aro06]# git config --global credential.helper 'cache --timeout 7200'`
+
+
 Please refer to the below link for those tasks:
 [OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
 
