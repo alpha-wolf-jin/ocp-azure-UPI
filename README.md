@@ -68,20 +68,20 @@ rm 'openshift-install'
 
 [Azure Portal](https://portal.azure.com)
 
-###Click the resouce group `openenv-g96kt`
-![Once Login Azure portal](images/azure-rg-01.png?raw=true "Optional Title")
+### Click the resouce group `openenv-g96kt`
+![Once Login Azure portal](images/azure-rg-01.png)
 
-###Click `Create` to create the public DNS ZONE
-![Create DNS ZONE](images/azure-dns-zone-01.png?raw=true "Optional Title")
-
-
-###Specify the RG and DOMAIN name
-![Specify Domain](images/azure-dns-zone-02.png?raw=true "Optional Title")
+### Click `Create` to create the public DNS ZONE
+![Create DNS ZONE](images/azure-dns-zone-01.png)
 
 
-###New DOMAIN name
-![Once Login Azure portal](images/azure-dns-zone-03.png?raw=true "Optional Title")
+### Specify the RG and DOMAIN name
+![Specify Domain](images/azure-dns-zone-02.png)
 
 
-###DOMAIN is empty
-![Once Login Azure portal](images/azure-dns-zone-04.png?raw=true "Optional Title")
+### New DOMAIN name
+![Once Login Azure portal](images/azure-dns-zone-03.png)
+
+
+### DOMAIN is empty
+![Once Login Azure portal](images/azure-dns-zone-04.png)
