@@ -239,12 +239,38 @@ openenv-g96kt
 
 [root@localhost aro06]# export BASE_DOMAIN_RESOURCE_GROUP=openenv-g96kt
 ```
+**backup configuration file**
+
+The original configuration file will be consumed druing creation manifest files.
+
+`[root@localhost aro06]# cp install-config.yaml ~/backup/install-config.yaml-9-April`
+
+
+
 ## 03 Create Configuration file
 
 **Create OCP configation file**
 
 ```
-yml
+[root@localhost aro06]# cp install-config.yaml ~/backup/install-config.yaml-9-April
+[root@localhost aro06]# ../openshift-install create manifests
+INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json" 
+INFO Consuming Install Config from target directory 
+INFO Manifests created in: manifests and openshift 
+[root@localhost aro06]# tree
+.
+├── images
+│   ├── azure-dns-zone-01.png
+│   ├── azure-dns-zone-02.png
+│   ├── azure-dns-zone-03.png
+│   ├── azure-dns-zone-04.png
+│   ├── azure-portal-01.png
+│   ├── azure-rg-01.png
+│   └── test
+├── manifests
+│   ├── cloud-provider-config.yaml
+│   ├── cluster-config.yaml
+│   ├── cluster-dns-02-config.yml
 │   ├── cluster-infrastructure-02-config.yml
 │   ├── cluster-ingress-02-config.yml
 │   ├── cluster-network-01-crd.yml
@@ -274,5 +300,6 @@ yml
 └── README.md
 
 3 directories, 36 files
+
 
 ```
