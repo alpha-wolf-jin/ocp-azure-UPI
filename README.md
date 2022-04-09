@@ -716,5 +716,30 @@ https://arosa.blob.core.windows.net/files/bootstrap.ign?se=2022-04-10T12%3A04Z&s
 
 ```
 
+**Bootstrap VM's resources on Azure portal**
+![Once Login Azure portal](images/azure-bootstrap-vm-01.png)
+
+
+**Click `Connection` for Bootstrap VM's resources on Azure portal**
+![Once Login Azure portal](images/azure-bootstrap-connection-01.png)
+
+
+**Connect via SSH with client**
+![Once Login Azure portal](images/azure-bootstrap-vm-03.png)
+
+
+```
+[root@localhost aro06]# ssh -i ~/.ssh/id_ed25519 core@aro-clmlm-bootstrap-ssh-pip.eastus.cloudapp.azure.com
+The authenticity of host 'aro-clmlm-bootstrap-ssh-pip.eastus.cloudapp.azure.com (20.121.83.118)' can't be established.
+ECDSA key fingerprint is SHA256:KKzO7WvXCLG+vlDM+DaDDBs+KMt4MmFegkJJ5aLjiN0.
+...
+---
+This is the bootstrap node; it will be destroyed when the master is fully up.
+
+The primary services are release-image.service followed by bootkube.service. To watch their status, run e.g.
+
+  journalctl -b -f -u release-image.service -u bootkube.service
+
+```
 
 
