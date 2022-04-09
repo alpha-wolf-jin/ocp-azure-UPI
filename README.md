@@ -1022,3 +1022,59 @@ secret/installer-cloud-credentials data updated
 
 
 ```
+
+**Wait for 10 min..check cluster status**
+
+```
+[root@localhost aro06]# oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             4.10.6    True        False         False      27m     
+baremetal                                  4.10.6    True        False         False      65m     
+cloud-controller-manager                   4.10.6    True        False         False      69m     
+cloud-credential                           4.10.6    True        False         False      85m     
+cluster-autoscaler                         4.10.6    True        False         False      65m     
+config-operator                            4.10.6    True        False         False      68m     
+console                                    4.10.6    True        False         False      32m     
+csi-snapshot-controller                    4.10.6    True        False         False      57m     
+dns                                        4.10.6    True        False         False      57m     
+etcd                                       4.10.6    True        False         False      64m     
+image-registry                             4.10.6    True        False         False      10m     
+ingress                                    4.10.6    True        False         False      35m     
+insights                                   4.10.6    True        False         False      62m     
+kube-apiserver                             4.10.6    True        False         False      50m     
+kube-controller-manager                    4.10.6    True        False         False      62m     
+kube-scheduler                             4.10.6    True        False         False      63m     
+kube-storage-version-migrator              4.10.6    True        False         False      57m     
+machine-api                                4.10.6    True        False         False      62m     
+machine-approver                           4.10.6    True        False         False      68m     
+machine-config                             4.10.6    True        False         False      64m     
+marketplace                                4.10.6    True        False         False      68m     
+monitoring                                 4.10.6    True        False         False      21m     
+network                                    4.10.6    True        False         False      69m     
+node-tuning                                4.10.6    True        False         False      57m     
+openshift-apiserver                        4.10.6    True        False         False      57m     
+openshift-controller-manager               4.10.6    True        False         False      57m     
+openshift-samples                          4.10.6    True        False         False      54m     
+operator-lifecycle-manager                 4.10.6    True        False         False      65m     
+operator-lifecycle-manager-catalog         4.10.6    True        False         False      65m     
+operator-lifecycle-manager-packageserver   4.10.6    True        False         False      57m     
+service-ca                                 4.10.6    True        False         False      68m     
+storage                                    4.10.6    True        False         False      57m     
+
+[root@localhost aro06]# oc get clusterversion
+NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
+version   4.10.6    True        False         7m27s   Cluster version is 4.10.6
+
+
+[root@localhost aro06]# ./openshift-install  wait-for install-complete 
+-bash: ./openshift-install: No such file or directory
+[root@localhost aro06]# 
+[root@localhost aro06]# ../openshift-install  wait-for install-complete 
+INFO Waiting up to 40m0s (until 10:23PM) for the cluster at https://api.aro.example.opentlc.com:6443 to initialize... 
+INFO Waiting up to 10m0s (until 9:53PM) for the openshift-console route to be created... 
+INFO Install complete!                            
+INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/root/aro06/auth/kubeconfig' 
+INFO Access the OpenShift web-console here: https://console-openshift-console.apps.aro.example.opentlc.com 
+INFO Login to the console with user: "kubeadmin", and password: "e7w3D-iao78-tYZox-7gKC9" 
+INFO Time elapsed: 2s                  
+```
