@@ -695,6 +695,8 @@ Create the api DNS record in a existing public zone
 **Export the bootstrap URL variable**
 
 ```
+[root@localhost aro06]# bootstrap_url_expiry=`date -u -d "24 hours" '+%Y-%m-%dT%H:%MZ'`
+
 [root@localhost aro06]# export BOOTSTRAP_URL=`az storage blob generate-sas -c 'files' -n 'bootstrap.ign' --https-only --full-uri --permissions r --expiry $bootstrap_url_expiry --account-name ${CLUSTER_NAME}sa --account-key ${ACCOUNT_KEY} -o tsv`
 
 [root@localhost aro06]# echo $BOOTSTRAP_URL
