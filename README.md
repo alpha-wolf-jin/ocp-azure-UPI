@@ -648,7 +648,7 @@ Please refer to the below link for all templates:
 **Deploy the cluster image**
 
 ```
-[root@localhost aro06]# az deployment group create -g openenv-g96kt --template-file 02_storage.json --parameters vhdBlobURL="${VHD_BLOB_URL}" --parameters baseName="${INFRA_ID}"
+[root@localhost aro06]# az deployment group create -g ${RESOURCE_GROUP} --template-file 02_storage.json --parameters vhdBlobURL="${VHD_BLOB_URL}" --parameters baseName="${INFRA_ID}"
 
 ```
 >The blob URL of the RHCOS VHD to be used to create master and worker machines.
