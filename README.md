@@ -71,7 +71,7 @@ The below commands werer installed.
 - oc command
 - openshift-install command 
   - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
-- openshift-install command 
+- oc command 
   - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz`
 - pull secet is stored in the /root/pull-secet.txt
 - Create defautl dir for cluster installatin
