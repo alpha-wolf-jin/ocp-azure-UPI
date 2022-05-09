@@ -1,7 +1,7 @@
 # ocp-azure-UPI
 
 ## Azure environment details
-
+Azure Blank Open Environment
 ```
 Resource Group: openenv
 Application: openenv
