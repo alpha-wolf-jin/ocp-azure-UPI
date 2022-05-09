@@ -236,6 +236,8 @@ INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json"
 ? Pull Secret [? for help] 
 INFO Install-Config created in: .
 ```
+> if failed, remove previous conf file
+`# rm -f /root/.azure/osServicePrincipal.json`
 
 **Customize configation file**
 
