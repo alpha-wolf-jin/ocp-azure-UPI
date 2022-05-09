@@ -95,9 +95,17 @@ Please refer to the below link for those tasks:
 ## Test azure cli login
 
 ### Add the evironment variable to `~/.bashrc`
+```
+export GUID=dk7fm
+export CLIENT_ID=5331 
+export PASSWORD=sNIMx5 
+export TENANT=1ce7 
+export SUBSCRIPTION=ede7 
+export RESOURCEGROUP=openenv-dk7fm
+# vi ~/.bashrc 
 
 [root@localhost aro06]# az login --service-principal -u $CLIENT_ID -p $PASSWORD --tenant $TENANT
-
+```
 > Remove the big file from commit
 ```
 ...
