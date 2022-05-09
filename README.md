@@ -707,7 +707,12 @@ Please refer to the below link for all templates:
 **New VNet & Networ Security Group on Azure portal**
 ![Once Login Azure portal](images/azure-vnet-nsg-01.png)
 
+**New VNet has 2 subnets on Azure portal**
+![Once Login Azure portal](images/azure-upi-network-01.png)
+>One subnet is for master nodes and the other is for work nodes. Both are part of machine network.
 
+**New VSecurity Group on Azure portal**
+![Once Login Azure portal](images/azure-upi-network-02.png)
 
 ## 10 Deploying the RHCOS cluster image for the Azure infrastructure
 
