@@ -79,6 +79,15 @@ The below commands werer installed.
 - Set Git Credentail cache
   - `git config --global credential.helper 'cache --timeout 7200'`
 
+```
+# tar xvf openshift-client-linux.tar.gz
+# tar xvf openshift-install-linux.tar.gz
+# mv ./{oc,openshift-install} /usr/local/sbin/.
+[root@localhost aro08]# oc version
+Client Version: 4.10.11
+# openshift-install version
+openshift-install 4.10.11
+```
 
 Please refer to the below link for those tasks:
 [OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
