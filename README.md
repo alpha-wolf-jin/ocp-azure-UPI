@@ -17,7 +17,49 @@ Resource Group: XXXXXXXXXXXXXX
 Client ID: XXXXXXXXXXXXXXXXX
 Client Secret: XXXXXXXXXXXXXXXXXXX
 ```
+In order to conserve resources, we cannot archive or restore any data in this environment. All data will be lost upon expiration.
+Here is some important information about your environment:
+The resource group 'openenv-dk7fm' was created in our Azure organization.
+If you have previously accepted an invitation your environment should be available at https://portal.azure.com
+Your Azure account should be SSO enabled, so please log into the portal with your Red Hat Credentials
+Your account now has full access to this resource group.  All resources must be in this resource group or you will see permission denied errors.
+When this OPEN environment is deleted, the resource group will be removed and all data will be irrecovably removed.
+Please regularly back up your data and script your changes in case you need to rebuild.
+Please see this page for more information: https://www.opentlc.com/azure/openenv_documentation.html
 
+Your Azure environment details:
+Resource Group: openenv-dk7fm
+Application: openenv-dk7fm
+Application/Client/Service Principal ID: 53 
+Password: sNIMx55Ypqavw 
+Tenant ID: 1ce7 
+Subscription ID: ede7 
+
+Azure CLI quickstart:
+export GUID=dk7fm
+export CLIENT_ID=5331 
+export PASSWORD=sNIMx5 
+export TENANT=1ce7 
+export SUBSCRIPTION=ede7 
+export RESOURCEGROUP=openenv-dk7fm
+
+curl -L https://aka.ms/InstallAzureCli | bash
+az login --service-principal -u $CLIENT_ID -p $PASSWORD --tenant $TENANT
+
+See https://docs.microsoft.com/en-us/cli/azure/install-azure-cli for more info on installing the azure CLI
+See https://docs.microsoft.com/en-us/cli/azure/ for full documentation of the azure CLI
+
+When creating ARO clusters, you must specify the following credentials in the az aro create command using this preconfigured service principal:
+Resource Group: openenv-dk7fm
+Client ID: 9b1e8 
+Client Secret: 36q 
+
+Example ARO installation commands (log in using az login command from above):
+az network vnet create --resource-group openenv-dk7fm --name aro-vnet-dk7fm --address-prefixes 10.0.0.0/22
+az network vnet subnet create --resource-group openenv-dk7fm --vnet-name aro-vnet-dk7fm --name master-subnet --address-prefixes 10.0.0.0/23 --service-endpoints Microsoft.ContainerRegistry
+az network vnet subnet create --resource-group openenv-dk7fm --vnet-name aro-vnet-dk7fm --name worker-subnet --address-prefixes 10.0.2.0/23 --service-endpoints Microsoft.ContainerRegistry
+az network vnet subnet update --name master-subnet --resource-group openenv-dk7fm --vnet-name aro-vnet-dk7fm --disable-private-link-service-network-policies true
+az aro create --resource-group openenv-dk7fm --name aro-cluster-dk7fm --vnet aro-vnet-dk7fm --master-subnet master-subnet --worker-subnet worker-subnet --client-id 9b1e8c2f  --client-secret '36qFl4X' --pull-secret @/path/to/pull-secret.txt
 
 ## Prepare the commands and pull secret
 
