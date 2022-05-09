@@ -17,6 +17,8 @@ Resource Group: XXXXXXXXXXXXXX
 Client ID: XXXXXXXXXXXXXXXXX
 Client Secret: XXXXXXXXXXXXXXXXXXX
 ```
+
+```
 In order to conserve resources, we cannot archive or restore any data in this environment. All data will be lost upon expiration.
 Here is some important information about your environment:
 The resource group 'openenv-dk7fm' was created in our Azure organization.
@@ -60,6 +62,7 @@ az network vnet subnet create --resource-group openenv-dk7fm --vnet-name aro-vne
 az network vnet subnet create --resource-group openenv-dk7fm --vnet-name aro-vnet-dk7fm --name worker-subnet --address-prefixes 10.0.2.0/23 --service-endpoints Microsoft.ContainerRegistry
 az network vnet subnet update --name master-subnet --resource-group openenv-dk7fm --vnet-name aro-vnet-dk7fm --disable-private-link-service-network-policies true
 az aro create --resource-group openenv-dk7fm --name aro-cluster-dk7fm --vnet aro-vnet-dk7fm --master-subnet master-subnet --worker-subnet worker-subnet --client-id 9b1e8c2f  --client-secret '36qFl4X' --pull-secret @/path/to/pull-secret.txt
+```
 
 ## Prepare the commands and pull secret
 
@@ -68,6 +71,8 @@ The below commands werer installed.
 - oc command
 - openshift-install command 
   - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz`
+- openshift-install command 
+  - `wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz`
 - pull secet is stored in the /root/pull-secet.txt
 - Create defautl dir for cluster installatin
   - `mkdir aro06 ; cd aro06`
