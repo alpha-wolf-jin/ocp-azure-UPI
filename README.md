@@ -436,6 +436,11 @@ status:
 ~                                                                                                                                               
 :%s#aro-clmlm-rg#openenv-g96kt#g
 
+[root@localhost aro08]# vim ./manifests/cloud-provider-config.yaml
+[root@localhost aro08]# vim ./manifests/cluster-infrastructure-02-config.yml
+[root@localhost aro08]# vim ./manifests/cluster-dns-02-config.yml
+...
+
 ```
 
 Confirmed that there is no more `aro-clmlm-rg` in `./manifests/` dir
