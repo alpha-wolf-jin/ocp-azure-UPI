@@ -378,77 +378,23 @@ INFO Manifests created in: manifests and openshift
 
 **Update the resoure group**
 
+> `Auto generated route group name <infrastructureName>-rg : aro-pxn45-rg`
+> I used predefined resource group, instead of default resource group.
+
+```
+# sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' manifests/*
+
+# sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' openshift/*
+
+# grep -R aro-pxn45-rg ./*
+# 
+
+
+```
+
 I used predefined resource group, instead of default resource group.
 
-```
-[root@localhost aro06]# cat manifests/cluster-infrastructure-02-config.yml
-apiVersion: config.openshift.io/v1
-kind: Infrastructure
-metadata:
-  creationTimestamp: null
-  name: cluster
-spec:
-  cloudConfig:
-    key: config
-    name: cloud-provider-config
-  platformSpec:
-    type: Azure
-status:
-  apiServerInternalURI: https://api-int.aro.example.opentlc.com:6443
-  apiServerURL: https://api.aro.example.opentlc.com:6443
-  controlPlaneTopology: HighlyAvailable
-  etcdDiscoveryDomain: ""
-  infrastructureName: aro-clmlm
-  infrastructureTopology: HighlyAvailable
-  platform: Azure
-  platformStatus:
-    azure:
-      cloudName: AzurePublicCloud
-      networkResourceGroupName: aro-clmlm-rg
-      resourceGroupName: aro-clmlm-rg
-    type: Azure
-```
 
-> `Auto generated route group name <infrastructureName>-rg : aro-clmlm-rg`
-
-```
-[root@localhost aro06]# grep -R aro-clmlm-rg ./manifests/
-./manifests/cloud-provider-config.yaml:    \"aro-clmlm-rg\",\n\t\"location\": \"eastus\",\n\t\"vnetName\": \"aro-clmlm-vnet\",\n\t\"vnetResourceGroup\":
-./manifests/cloud-provider-config.yaml:    \"aro-clmlm-rg\",\n\t\"subnetName\": \"aro-clmlm-worker-subnet\",\n\t\"securityGroupName\":
-./manifests/cluster-dns-02-config.yml:    id: /subscriptions/ede7f891-835c-4128-af5b-0e53848e54e7/resourceGroups/aro-clmlm-rg/providers/Microsoft.Network/privateDnsZones/aro.example.opentlc.com
-./manifests/cluster-infrastructure-02-config.yml:      networkResourceGroupName: aro-clmlm-rg
-./manifests/cluster-infrastructure-02-config.yml:      resourceGroupName: aro-clmlm-rg
-
-```
->Replace all `aro-clmlm-rg` will `openenv-g96kt` predefined resource group
-
-```
-[root@localhost aro06]# vim ./manifests/cluster-infrastructure-02-config.yml
-~                                                                                                                                               
-~                                                                                                                                               
-:%s#aro-clmlm-rg#openenv-g96kt#g
-
-```
-
-```
-[root@localhost aro06]# vim ./manifests/cloud-provider-config.yaml
-~                                                                                                                                               
-~                                                                                                                                               
-:%s#aro-clmlm-rg#openenv-g96kt#g
-
-[root@localhost aro08]# vim ./manifests/cloud-provider-config.yaml
-[root@localhost aro08]# vim ./manifests/cluster-infrastructure-02-config.yml
-[root@localhost aro08]# vim ./manifests/cluster-dns-02-config.yml
-...
-
-```
-
-Confirmed that there is no more `aro-clmlm-rg` in `./manifests/` dir
-```
-[root@localhost aro06]# grep -R aro-clmlm-rg ./manifests/
-[root@localhost aro06]# 
-
-```
 
 
 **Delete machines & machineset configuration files for master and worker**
