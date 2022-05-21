@@ -393,9 +393,7 @@ aro-pxn45-rg
 
 # sed -i "s/${INFRA_ID}-rg/${BASE_DOMAIN_RESOURCE_GROUP}/g" openshift/*
 
-# sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' openshift/*
-
-# grep -R aro-pxn45-rg ./*
+# grep -R ${INFRA_ID}-rg ./*
 # 
 
 
