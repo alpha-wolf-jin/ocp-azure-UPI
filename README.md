@@ -388,7 +388,9 @@ INFO Manifests created in: manifests and openshift
 # echo $INFRA_ID-rg
 aro-pxn45-rg
 
-# sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' manifests/*
+# sed -i "s/${INFRA_ID}-rg/${BASE_DOMAIN_RESOURCE_GROUP}/g" manifests/*
+
+# sed -i "s/${INFRA_ID}-rg/${BASE_DOMAIN_RESOURCE_GROUP}/g" openshift/*
 
 # sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' openshift/*
 
