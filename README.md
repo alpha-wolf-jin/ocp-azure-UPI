@@ -307,10 +307,11 @@ example.opentlc.com
 
 [root@localhost aro06]# export BASE_DOMAIN=example.opentlc.com
 
-[root@localhost aro06]# yq -r .platform.azure.baseDomainResourceGroupName install-config.yaml
+[root@localhost aro06]# export BASE_DOMAIN_RESOURCE_GROUP=`yq -r .platform.azure.baseDomainResourceGroupName install-config.yaml`
+
+[root@localhost aro06]# echo $BASE_DOMAIN_RESOURCE_GROUP
 openenv-g96kt
 
-[root@localhost aro06]# export BASE_DOMAIN_RESOURCE_GROUP=openenv-g96kt
 ```
 **backup configuration file**
 
