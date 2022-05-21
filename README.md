@@ -383,6 +383,11 @@ INFO Manifests created in: manifests and openshift
 > I used predefined resource group, instead of default resource group.
 
 ```
+# export INFRA_ID=`yq -r '.status.infrastructureName' manifests/cluster-infrastructure-02-config.yml`
+
+# echo $INFRA_ID-rg
+aro-pxn45-rg
+
 # sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' manifests/*
 
 # sed -i 's/aro-pxn45-rg/openenv-bzjkb/g' openshift/*
