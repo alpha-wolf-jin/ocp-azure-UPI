@@ -379,6 +379,7 @@ INFO Manifests created in: manifests and openshift
 **Update the resoure group**
 
 > `Auto generated route group name <infrastructureName>-rg : aro-pxn45-rg`
+
 > I used predefined resource group, instead of default resource group.
 
 ```
@@ -391,8 +392,6 @@ INFO Manifests created in: manifests and openshift
 
 
 ```
-
-I used predefined resource group, instead of default resource group.
 
 
 
