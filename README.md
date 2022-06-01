@@ -158,7 +158,10 @@ rm 'openshift-install'
 ### DOMAIN is empty
 ![Once Login Azure portal](images/azure-dns-zone-04.png)
 
-
+**CLI creates public DNS zone**
+```
+az network dns zone create -g ${RESOURCE_GROUP} -n example.opentlc.com
+```
 ### Update the name server on bastion
 
 ```
@@ -221,7 +224,7 @@ example.opentlc.com.	172800	IN	NS	ns4-07.azure-dns.info.
 **Create OCP configation file**
 
 ```
-[root@localhost aro06]# ../openshift-install create install-config
+[root@localhost aro06]# openshift-install create install-config
 ? SSH Public Key /root/.ssh/id_ed25519.pub
 ? Platform azure
 ? azure subscription id <Subscription ID>
@@ -242,7 +245,7 @@ INFO Install-Config created in: .
 **Customize configation file**
 
 You can customize the configuartion file. Below command can help to understand how to customize it.
-`[root@localhost aro06]# ../openshift-install explain installconfig.platform`
+`[root@localhost aro06]# openshift-install explain installconfig.platform`
 
 I did not modify the fconfiguartion file.
 ```
@@ -326,7 +329,7 @@ The original configuration file will be consumed druing creation manifest files.
 **Create OCP configation file**
 
 ```
-[root@localhost aro06]# ../openshift-install create manifests
+[root@localhost aro06]# openshift-install create manifests
 INFO Credentials loaded from file "/root/.azure/osServicePrincipal.json" 
 INFO Consuming Install Config from target directory 
 INFO Manifests created in: manifests and openshift 
@@ -446,7 +449,7 @@ openenv-g96kt
 ## 04 Create Ignite files
 
 ```
-[root@localhost aro06]# ../openshift-install create ignition-configs
+[root@localhost aro06]# openshift-install create ignition-configs
 INFO Consuming Common Manifests from target directory 
 INFO Consuming OpenShift Install (Manifests) from target directory 
 INFO Consuming Master Machines from target directory 
@@ -549,7 +552,7 @@ az role assignment create --assignee 3cc79d25-f1d5-482f-828c-092671226a6a --role
 **Export the URL of the RHCOS VHD to an environment variable**
 
 ```
-[root@localhost aro06]# export VHD_URL=$(../openshift-install coreos print-stream-json | jq -r '.architectures.x86_64."rhel-coreos-extensions"."azure-disk".url')
+[root@localhost aro06]# export VHD_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.x86_64."rhel-coreos-extensions"."azure-disk".url')
 [root@localhost aro06]# echo $VHD_URL
 https://rhcos.blob.core.windows.net/imagebucket/rhcos-410.84.202201251210-0-azure.x86_64.vhd
 
@@ -806,7 +809,7 @@ Apr 09 12:43:42 aro-clmlm-bootstrap systemd[1]: bootkube.service: Succeeded.
 ```
 
 ```
-[root@localhost aro06]# ../openshift-install wait-for bootstrap-complete --dir /root/aro06 --log-level debug
+[root@localhost aro06]# openshift-install wait-for bootstrap-complete --dir /root/aro06 --log-level debug
 DEBUG OpenShift Installer 4.10.6                   
 DEBUG Built from commit 17c2fe7527e96e250e442a15727f7558b2fb8899 
 INFO Waiting up to 20m0s (until 9:07PM) for the Kubernetes API at https://api.aro.example.opentlc.com:6443... 
@@ -1100,10 +1103,10 @@ NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
 version   4.10.6    True        False         7m27s   Cluster version is 4.10.6
 
 
-[root@localhost aro06]# ../openshift-install  wait-for install-complete 
+[root@localhost aro06]# openshift-install  wait-for install-complete 
 -bash: ./openshift-install: No such file or directory
 [root@localhost aro06]# 
-[root@localhost aro06]# ../openshift-install  wait-for install-complete 
+[root@localhost aro06]# openshift-install  wait-for install-complete 
 INFO Waiting up to 40m0s (until 10:23PM) for the cluster at https://api.aro.example.opentlc.com:6443 to initialize... 
 INFO Waiting up to 10m0s (until 9:53PM) for the openshift-console route to be created... 
 INFO Install complete!                            
