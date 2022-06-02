@@ -1,5 +1,13 @@
 # ocp-azure-UPI
 
+The auto playbook for this doc is in blow link:
+
+https://github.com/alpha-wolf-jin/Ansible-OCP-Azure-ARM-UPI-Installation
+
+Offical Doc:
+
+https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html
+
 ## Azure environment details
 Azure Blank Open Environment
 ```
@@ -91,6 +99,8 @@ openshift-install 4.10.11
 
 Please refer to the below link for those tasks:
 [OpenShift Pages](https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html)
+
+https://docs.openshift.com/container-platform/4.10/installing/installing_azure/installing-azure-user-infra.html
 
 ## Test azure cli login
 
