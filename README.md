@@ -95,7 +95,7 @@ nameserver 192.168.1.254
 ```
 ## Prepare the commands and pull secret
 
-The below commands werer installed.
+The below commands were installed.
 
 - oc command
 - openshift-install command 
@@ -170,6 +170,8 @@ rm 'openshift-install'
 
 
 [Azure Portal](https://portal.azure.com)
+
+Use the company mail address as the user to log in.
 
 ### Click the resouce group `openenv-g96kt`
 ![Once Login Azure portal](images/azure-rg-01.png)
