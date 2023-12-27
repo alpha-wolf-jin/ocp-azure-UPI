@@ -321,9 +321,21 @@ sshKey: |
   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONeWKSpAxbJrkkThCxUjlVe80jSz2y9hIpDLpx43AyY root@localhost.localdomain
 ```
 
+**Install yq command**
 
+https://snapcraft.io/install/yq/rhel
 
-**Set the env variable based on configuration file**
+```
+#  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+#  subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
+#  yum update
+#  yum install snapd
+#  systemctl enable --now snapd.socket
+#  ln -s /var/lib/snapd/snap /snap
+```
+Add `/var/lib/snapd/snap/bin` to PATH
+
+**Set the env variable based on the configuration file**
 
 
 
